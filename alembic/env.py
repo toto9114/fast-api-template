@@ -4,7 +4,7 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-# from backend.core.config import settings
+from backend.core.config import settings
 import os
 
 # this is the Alembic Config object, which provides
@@ -32,16 +32,11 @@ target_metadata = Base.metadata
 
 
 def get_url():
-    # user = os.getenv("MYSQL_USER", settings.MYSQL_USER)
-    # password = os.getenv("MYSQL_PASSWORD", settings.MYSQL_PASSWORD)
-    # host = os.getenv("MYSQL_HOST", settings.MYSQL_HOST)
-    # port = os.getenv("MYSQL_PORT", settings.MYSQL_PORT)
-    # db = os.getenv("MYSQL_DB_NAME", settings.MYSQL_DB_NAME)
-    user = os.getenv("MYSQL_USER", "root")
-    password = os.getenv("MYSQL_PASSWORD", "jXytv5PADGkNLQ1repue")
-    host = os.getenv("MYSQL_HOST", "localhost")
-    port = os.getenv("MYSQL_PORT", "3306")
-    db = os.getenv("MYSQL_DB_NAME", "foodmap")
+    user = os.getenv("MYSQL_USER", settings.MYSQL_USER)
+    password = os.getenv("MYSQL_PASSWORD", settings.MYSQL_PASSWORD)
+    host = os.getenv("MYSQL_HOST", settings.MYSQL_HOST)
+    port = os.getenv("MYSQL_PORT", settings.MYSQL_PORT)
+    db = os.getenv("MYSQL_DB_NAME", settings.MYSQL_DB_NAME)
     return f"mysql+pymysql://{user}:{password}@{host}:{port}/{db}"
 
 
