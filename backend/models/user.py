@@ -16,5 +16,7 @@ class User(Base):
     is_superuser = Column(Boolean, default=False)
     is_active = Column(Boolean, default=True)
     created_at = Column(TIMESTAMP, server_default=func.now())
-    updated_at = Column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))
-    places = relationship('Place', back_populates='owner')
+    updated_at = Column(
+        TIMESTAMP, server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    )
+    places = relationship("Place", back_populates="owner")

@@ -5,9 +5,7 @@ from backend.api.api import api_router
 from backend.core.config import settings
 from backend.schemas.resp import CommonResponse
 
-app = FastAPI(
-    title=settings.PROJECT_NAME
-)
+app = FastAPI(title=settings.PROJECT_NAME)
 
 
 # Add the middleware to the app

@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+cd ${PROJECT_DIR}
+envsubst '${NGINX_UVICORN_ADDRESS}' < /etc/nginx/nginx.conf | tee /etc/nginx/nginx.conf
+#exec nginx -g 'daemon off;'
+exec nginx -c '/etc/nginx/nginx.conf'

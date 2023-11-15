@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+cd ${PROJECT_DIR}
+exec poetry run alembic upgrade head

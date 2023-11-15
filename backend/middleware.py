@@ -6,7 +6,7 @@ from starlette.concurrency import iterate_in_threadpool
 
 class CommonResponseMiddleware(BaseHTTPMiddleware):
     async def dispatch(
-            self, request: Request, call_next: RequestResponseEndpoint
+        self, request: Request, call_next: RequestResponseEndpoint
     ) -> Response:
         response = await call_next(request)
         response_body = [chunk async for chunk in response.body_iterator]
@@ -14,11 +14,8 @@ class CommonResponseMiddleware(BaseHTTPMiddleware):
         response_body = response_body[0].decode()
         # Customize the response
         custom_response = {
-            "meta": {
-                "status_code": response.status_code,
-                "message": "Ok"
-            },
-            "data": response_body
+            "meta": {"status_code": response.status_code, "message": "Ok"},
+            "data": response_body,
         }
 
         # Return the customized response
