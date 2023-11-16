@@ -10,9 +10,9 @@ python = "^3.11"
 pytest = "^7.4.2"
 fastapi = "^0.101.0"
 requests = ">=2.27.0, <3.0.0"
-uvicorn = {extras = ["standard"], version = "^0.23.2"}
-sqlalchemy = "^2.0.20"
+uvicorn = { extras = ["standard"], version = "^0.23.2" }
 alembic = "^1.11.3"
+sqlalchemy = { extras = ["asyncio"], version = "^2.0.20" }
 starlette = "^0.27.0"
 python-dotenv = "^1.0.0"
 psycopg2-binary = "^2.9.7"
@@ -20,13 +20,14 @@ passlib = { extras = ["bcrypt"], version = "^1.7.4" }
 python-jose = { extras = ["cryptography"], version = "^3.3.0" }
 email-validator = "^2.0.0.post2"
 python-multipart = "^0.0.6"
-redis = {extras = ["hiredis"], version = "^5.0.0"}
+redis = { extras = ["hiredis"], version = "^5.0.0" }
 flake8 = "*"
 ujson = ">=5.7.0, <5.8.0"
 python-ulid = "^1.1.0"
 pydantic-settings = "^2.0.3"
 pymysql = "^1.1.0"
 sqlalchemy-stubs = "^0.4"
+aiomysql = "^0.2.0"
 
 
 [tool.poetry.group.dev.dependencies]
