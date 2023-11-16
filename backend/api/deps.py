@@ -1,10 +1,10 @@
 from typing import Generator
-from backend.db.session import SessionLocal
+from backend.db.session import ScopedSessionLocal
 
 
 def get_db() -> Generator:
+    db = ScopedSessionLocal()
     try:
-        db = SessionLocal()
         yield db
     finally:
         db.close()
