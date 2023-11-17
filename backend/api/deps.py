@@ -1,10 +1,17 @@
 from typing import Generator
-from backend.db.session import ScopedSessionLocal
+from backend.db.session import AsyncScopedSessionLocal
+from sqlalchemy.ext.asyncio import AsyncSession
+from contextlib import asynccontextmanager
 
 
-def get_db() -> Generator:
-    db = ScopedSessionLocal()
+@asynccontextmanager
+async def get_db() -> AsyncSession:
+    session = AsyncScopedSessionLocal()
     try:
-        yield db
+        yield session
+        await session.commit()
+    except Exception as e:
+        await session.rollback()
+        raise e
     finally:
-        db.close()
+        await session.remove()

@@ -1,9 +1,9 @@
-from fastapi import FastAPI
-from starlette.exceptions import HTTPException
-
 from backend.api.api import api_router
 from backend.core.config import settings
+from backend.middleware.db_session_middleware import DBSessionMiddleware
 from backend.schemas.resp import CommonResponse
+from fastapi import FastAPI
+from starlette.exceptions import HTTPException
 
 app = FastAPI(title=settings.PROJECT_NAME)
 
@@ -18,5 +18,7 @@ async def http_exception_handler(request, exc):
 async def http_internal_server_error_handler(request, exc):
     return CommonResponse(status_code=500, message="Internal Server Error", data=None)
 
+
+app.add_middleware(DBSessionMiddleware)
 
 app.include_router(api_router)

@@ -47,13 +47,7 @@ class AppSetting(BaseSettings):
         if isinstance(v, str):
             return v
 
-        return PostgresDsn.build(
-            scheme="postgresql",
-            username=info.data.get("POSTGRES_USER"),
-            password=info.data.get("POSTGRES_PASSWORD"),
-            host=info.data.get("POSTGRES_HOST"),
-            path=f"/{info.data.get('POSTGRES_DB') or ''}",
-        ).unicode_string()
+        return f"postgresql+asyncpg://${info.data.get('POSTGRES_USER')}:${info.data.get('POSTGRES_PASSWORD')}@${info.data.get('POSTGRES_HOST')}/${info.data.get('POSTGRES_DB')}"
 
     # @field_validator("SQLALCHEMY_DATABASE_URL")
     # def assemble_db_connection(cls, v: Optional[str], values: ValidationInfo) -> str:
