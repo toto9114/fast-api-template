@@ -59,6 +59,11 @@ services:
       - "8000:8000"
     networks:
       - fast-api-template
+    healthcheck:
+      test: [ "CMD-SHELL", "curl --fail http://localhost:8000/health || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   nginx:
     build:
@@ -66,7 +71,7 @@ services:
     image: fast-api-template/backend
     depends_on:
       backend:
-        condition: service_started
+        condition: service_healthy
     restart: always
     command: backend.nginx
     ports:

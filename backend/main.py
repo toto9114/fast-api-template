@@ -1,6 +1,7 @@
 from backend.api.api import api_router
 from backend.core.config import settings
 from backend.middleware.db_session_middleware import DBSessionMiddleware
+from backend.middleware.health_check_middleware import HealthCheckMiddleware
 from backend.schemas.resp import CommonResponse
 from fastapi import FastAPI
 from starlette.exceptions import HTTPException
@@ -20,5 +21,6 @@ async def http_internal_server_error_handler(request, exc):
 
 
 app.add_middleware(DBSessionMiddleware)
+app.add_middleware(HealthCheckMiddleware)
 
 app.include_router(api_router)
