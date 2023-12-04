@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-alembic update --head
+alembic upgrade head

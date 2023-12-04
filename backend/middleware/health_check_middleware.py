@@ -11,5 +11,4 @@ class HealthCheckMiddleware(BaseHTTPMiddleware):
         if request.url.path == "/health":
             return JSONResponse(content={"status": "ok"})
         response = await call_next(request)
-
         return response

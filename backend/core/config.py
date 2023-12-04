@@ -28,11 +28,11 @@ class AppSetting(BaseSettings):
     REDIS_PORT: int = load_env("REDIS_PORT", "6379", as_type=int)
 
     # # MYSQL
-    # MYSQL_USER: str = load_env("MYSQL_USER", required=True)
-    # MYSQL_PASSWORD: str = load_env("MYSQL_PASSWORD", required=True)
-    # MYSQL_DB_NAME: str = load_env("MYSQL_DB_NAME", required=True)
-    # MYSQL_HOST: str = load_env("MYSQL_HOST", required=True)
-    # MYSQL_PORT: int = load_env("MYSQL_PORT", required=True, as_type=int)
+    MYSQL_USER: str = load_env("MYSQL_USER", required=True)
+    MYSQL_PASSWORD: str = load_env("MYSQL_PASSWORD", required=True)
+    MYSQL_DB_NAME: str = load_env("MYSQL_DB_NAME", required=True)
+    MYSQL_HOST: str = load_env("MYSQL_HOST", required=True)
+    MYSQL_PORT: int = load_env("MYSQL_PORT", required=True, as_type=int)
 
     # JWT
     JWT_SECRET: str = load_env("JWT_SECRET", secrets.token_urlsafe(32))
@@ -42,19 +42,19 @@ class AppSetting(BaseSettings):
 
     SQLALCHEMY_DATABASE_URL: Optional[str] = None
 
-    @field_validator("SQLALCHEMY_DATABASE_URL", mode="after")
-    def assemble_db_connection(cls, v: Optional[str], info: ValidationInfo) -> str:
-        if isinstance(v, str):
-            return v
-
-        return f"postgresql+asyncpg://${info.data.get('POSTGRES_USER')}:${info.data.get('POSTGRES_PASSWORD')}@${info.data.get('POSTGRES_HOST')}/${info.data.get('POSTGRES_DB')}"
-
-    # @field_validator("SQLALCHEMY_DATABASE_URL")
-    # def assemble_db_connection(cls, v: Optional[str], values: ValidationInfo) -> str:
+    # @field_validator("SQLALCHEMY_DATABASE_URL", mode="after")
+    # def assemble_db_connection(cls, v: Optional[str], info: ValidationInfo) -> str:
     #     if isinstance(v, str):
     #         return v
     #
-    #     return f"mysql+pymysql://{values.data.get('MYSQL_USER')}:{values.data.get('MYSQL_PASSWORD')}@{values.data.get('MYSQL_HOST')}:{values.data.get('MYSQL_PORT')}/{values.data.get('MYSQL_DB_NAME')}"
+    #     return f"postgresql+asyncpg://${info.data.get('POSTGRES_USER')}:${info.data.get('POSTGRES_PASSWORD')}@${info.data.get('POSTGRES_HOST')}/${info.data.get('POSTGRES_DB')}"
+
+    @field_validator("SQLALCHEMY_DATABASE_URL")
+    def assemble_db_connection(cls, v: Optional[str], values: ValidationInfo) -> str:
+        if isinstance(v, str):
+            return v
+
+        return f"mysql+aiomysql://{values.data.get('MYSQL_USER')}:{values.data.get('MYSQL_PASSWORD')}@{values.data.get('MYSQL_HOST')}:{values.data.get('MYSQL_PORT')}/{values.data.get('MYSQL_DB_NAME')}"
 
 
 settings = AppSetting()

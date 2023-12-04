@@ -27,7 +27,7 @@ RUN chmod +x ${PROJECT_DIR}/docker/run_command/* \
 RUN PIP_NO_CACHE_DIR=true poetry install --no-root --without dev \
     && chown -R jihun:jihun /app
 
-ENV PATH=${PROEJCT_DIR}:${PATH}
+ENV PATH=${PROJECT_DIR}:${PATH}
 ENV PYTHONPATH ${PATH}
 
 USER jihun

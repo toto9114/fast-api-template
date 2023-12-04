@@ -31,21 +31,21 @@ target_metadata = Base.metadata
 # ... etc.
 
 
-# def get_url():
-#     user = os.getenv("MYSQL_USER", settings.MYSQL_USER)
-#     password = os.getenv("MYSQL_PASSWORD", settings.MYSQL_PASSWORD)
-#     host = os.getenv("MYSQL_HOST", settings.MYSQL_HOST)
-#     port = os.getenv("MYSQL_PORT", settings.MYSQL_PORT)
-#     db = os.getenv("MYSQL_DB_NAME", settings.MYSQL_DB_NAME)
-#     return f"mysql+pymysql://{user}:{password}@{host}:{port}/{db}"
-
-
 def get_url():
-    user = os.getenv("POSTGRES_USER", settings.POSTGRES_USER)
-    password = os.getenv("POSTGRES_PASSWORD", settings.POSTGRES_PASSWORD)
-    host = os.getenv("POSTGRES_HOST", settings.POSTGRES_HOST)
-    db = os.getenv("POSTGRES_DB", settings.POSTGRES_DB)
-    return f"postgresql://{user}:{password}@{host}/{db}"
+    user = os.getenv("MYSQL_USER", settings.MYSQL_USER)
+    password = os.getenv("MYSQL_PASSWORD", settings.MYSQL_PASSWORD)
+    host = os.getenv("MYSQL_HOST", settings.MYSQL_HOST)
+    port = os.getenv("MYSQL_PORT", settings.MYSQL_PORT)
+    db = os.getenv("MYSQL_DB_NAME", settings.MYSQL_DB_NAME)
+    return f"mysql+pymysql://{user}:{password}@{host}:{port}/{db}"
+
+
+# def get_url():
+#     user = os.getenv("POSTGRES_USER", settings.POSTGRES_USER)
+#     password = os.getenv("POSTGRES_PASSWORD", settings.POSTGRES_PASSWORD)
+#     host = os.getenv("POSTGRES_HOST", settings.POSTGRES_HOST)
+#     db = os.getenv("POSTGRES_DB", settings.POSTGRES_DB)
+#     return f"postgresql://{user}:{password}@{host}/{db}"
 
 
 def run_migrations_offline() -> None:

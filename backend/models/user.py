@@ -11,12 +11,10 @@ if TYPE_CHECKING:
 
 class User(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    username = Column(String(20), unique=True, index=True, nullable=False)
-    password = Column(String(128), nullable=False)
+    email = Column(String(20), unique=True, index=True, nullable=False)
+    hashed_password = Column(String(128), nullable=False)
     is_superuser = Column(Boolean, default=False)
     is_active = Column(Boolean, default=True)
     created_at = Column(TIMESTAMP, server_default=func.now())
-    updated_at = Column(
-        TIMESTAMP, server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    )
+    updated_at = Column(TIMESTAMP, server_default=func.now())
     places = relationship("Place", back_populates="owner")
