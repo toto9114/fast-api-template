@@ -39,6 +39,7 @@ class AppSetting(BaseSettings):
     JWT_EXPIRE_MINUTE: int = load_env(
         "JWT_EXPIRE_MINUTE", str(60 * 24 * 8), as_type=int
     )
+    JWT_ALGORITHM: str = load_env("JWT_ALGORITHM", "HS256")
 
     SQLALCHEMY_DATABASE_URL: Optional[str] = None
 

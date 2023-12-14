@@ -1,12 +1,11 @@
 from datetime import datetime, timedelta
 from typing import Union, Any
-from passlib.context import CryptContext
+
 from jose import jwt
+from passlib.context import CryptContext
 from .config import settings
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-ALGORITHM = "HS256"
 
 
 async def create_access_token(
@@ -19,7 +18,9 @@ async def create_access_token(
     else:
         expire = curr_time + timedelta(minutes=settings.JWT_EXPIRE_MINUTE)
     to_encode = {"iat": curr_time, "exp": expire, "sub": str(subject)}
-    encoded_jwt = jwt.encode(to_encode, settings.JWT_SECRET, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(
+        to_encode, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM
+    )
     return encoded_jwt
 
 

@@ -1,11 +1,11 @@
 from typing import Optional
-from sqlalchemy.orm import Session
-from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
+
 from backend.core.security import get_password_hash, verify_password
 from backend.crud.base import CRUDBase
 from backend.models.user import User
 from backend.schemas.user import UserCreate, UserUpdate
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 
 class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):

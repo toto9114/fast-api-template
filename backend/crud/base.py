@@ -1,9 +1,9 @@
 from typing import Any, Generic, Optional, Type, TypeVar
 
-from pydantic import BaseModel
-from sqlalchemy.orm import Session
-
 from backend.db.base_class import Base
+from pydantic import BaseModel
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 ModelType = TypeVar("ModelType", bound=Base)
 CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
@@ -22,5 +22,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         """
         self.model = model
 
-    def get(self, db: Session, id: Any) -> Optional[ModelType]:
-        return db.query(self.model).filter(self.model.id == id).first()
+    async def get(self, db: AsyncSession, id: Any) -> Optional[ModelType]:
+        query = select(self.model).where(self.model.id == id)
+        result = await db.execute(query)
+        return result.scalar_one_or_none()

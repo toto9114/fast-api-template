@@ -9,6 +9,7 @@ from backend import crud, models, schemas
 from backend.api import deps
 from backend.core import security
 from backend.core.config import settings
+from sqlalchemy.ext.asyncio import AsyncSession
 from backend.core.security import get_password_hash
 
 router = APIRouter()
@@ -16,7 +17,7 @@ router = APIRouter()
 
 @router.post("/token", response_model=schemas.Token)
 async def login_access_token(
-    db: Session = Depends(deps.get_db), form_data: OAuth2PasswordRequestForm = Depends()
+    db: deps.SessionDep, form_data: OAuth2PasswordRequestForm = Depends()
 ) -> Any:
     """
     OAuth2 compatible token login, get an access token for future requests

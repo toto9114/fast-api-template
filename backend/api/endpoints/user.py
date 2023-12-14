@@ -13,8 +13,6 @@ router = APIRouter()
 @router.post(
     "/", response_model=CommonResponse.schema(), status_code=status.HTTP_201_CREATED
 )
-async def signup(
-    *, db: AsyncSession = Depends(deps.get_db), user_in: schemas.UserCreate
-) -> Any:
+async def signup(*, db: deps.SessionDep, user_in: schemas.UserCreate) -> Any:
     await crud.user.create(db=db, obj_in=user_in)
     return CommonResponse(status_code=status.HTTP_201_CREATED)
